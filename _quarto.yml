@@ -1,15 +1,15 @@
 project:
   type: website
+  output-dir: docs
+
 title: "Django Tutorial"
 
 output:
   html: default
 website: 
-
   sidebar:
     style: "docked"
     search: true
-    output-dir: docs
     contents:
       - text: Home
         href: index.qmd
