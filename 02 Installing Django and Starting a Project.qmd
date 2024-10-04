@@ -1,0 +1,37 @@
+## How to Install Django into Your Virtual Environment
+
+1. Install Django into your virtual environment using pip
+
+    ```bash
+    pip install django
+    ```
+
+
+2. Create a Django project using the following command. Note the final character is a dot, this will prevent it from creating a new folder and place needed files in the current folder. You can replace the word `tutorial` with the name of your project.
+
+    ```bash
+    django-admin startproject tutorial .   # note the dot here
+    ```
+
+3. You should have noticed a folder with the name of your project is created (`tutorial` in this case), and a file named `manage.py` is created. 
+
+    The folder called `tutorial` can be thought of as the settings folder for this project. It will contain special information about the project as a whole.
+
+    The file called `manage.py` is used as a window into the django project. We can run this file with other arguments to start the server, make changes to the database, amongst other things.
+
+
+4. Now let's make sure the server runs. You can run the server using the following command.
+
+    ```bash
+    python manage.py runserver
+    ```
+
+    You might get some red text that says something along the lines of `You have 18 unapplied migrations...`. Ignore this for now.
+
+5. Open a web browser and navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000). You should see a success message there.
+To kill the server at any point, just hit `ctrl+c` in the terminal started it in, or destroy the terminal.
+
+
+
+
+

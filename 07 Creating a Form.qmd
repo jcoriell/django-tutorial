@@ -1,0 +1,152 @@
+## Creating a Form
+
+
+In this portion of the tutorial, you will create a form in django, a template to represent that form, a view, and connect the view to the url.
+
+
+### Creating the Form in Django
+
+1. In the `students/` app directory, create a file called forms.py.
+
+2. In `students/forms.py` add the following code. We are creating a form by specifying the various elements of that form. We will be able to reference this form in the views file and a template later.
+
+```python
+from django import forms
+
+
+class CreateStudentForm(forms.Form):
+    first_name = forms.CharField(max_length=255, label="First Name")
+    last_name = forms.CharField(max_length=255, label="Last Name")
+    email = forms.EmailField(label="Email")
+
+```
+
+
+### Creating a Template to Represent the Form
+
+1. In the `students/templates/` directory, create the following three files:
+
+    a. `create_student_form.html` with the following code:
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Create Student Form</title>
+    </head>
+    <body>
+        <h1>Create Student</h1>
+
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_first_name">First Name:</label>
+                {{ form.first_name }}
+            </div>
+
+            <div>
+                <label for="id_last_name">Last Name:</label>
+                {{ form.last_name }}
+            </div>
+
+            <div>
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+    </body>
+    </html>
+    ```
+
+    b. `error_page.html`
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Error Page</title>
+    </head>
+    <body>
+        <h1>Error</h1>
+        <p>Sorry, an error occurred.</p>
+    </body>
+    </html>
+    ```
+
+    c. `success_page.html`
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Success Page</title>
+    </head>
+    <body>
+        <h1>Success</h1>
+        <p>The student was created!</p>
+    </body>
+    </html>
+    ```
+
+### Creating a View to Display the Form
+
+1. Navigate to `students/views.py` and modify the imports so that we have imported the newly created form from forms.
+
+    ```python
+    from django.shortcuts import render
+    from django.views import View
+    from . import models
+    from . import forms  # this line is new
+    ```
+
+2. Add a view to handle the displaying of the form and the processing of the form. The displaying of the form will be done via a `GET` request and the processing of the form will be done via a `POST` request.
+
+    ```python
+    class CreateStudent(View):
+    
+    def get(self, request):
+        """A GET request to pass the form to the frontend"""
+
+        # create the form with no values filled in
+        form = forms.CreateStudentForm()
+
+        # pass the form to the create_student_form.html template and render it
+        return render(request, 'create_student_form.html', {'form': form})
+    
+    
+    def post(self, request):
+        """A POST request will happen when someone submits the form"""
+
+        # create the form from the data that comes with the POST request
+        form = forms.CreateStudentForm(request.POST)
+        if form.is_valid(): # validate the form (if you add any validation)
+            # Create the student
+            student = models.Student(
+                first_name=form.cleaned_data["first_name"], 
+                last_name=form.cleaned_data["last_name"], 
+                email=form.cleaned_data["email"]
+            )
+            # Committ the student to the database
+            student.save()
+            
+            # render the success page
+            return render(request, "success_page.html")
+        
+        # render the error page
+        return render(request, "error_page.html")
+    ```
+
+### Connecting the View to a URL
+
+1. Navigate to `students/urls.py` and modify the `urlpatters` list to reflect the following:
+
+    ```python
+    urlpatterns = [
+        path("all/", views.GetAllStudents.as_view(), name="all"),
+        path("new/", views.CreateStudent.as_view(), name="new")  # this is new
+    ]
+    ```

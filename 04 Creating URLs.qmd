@@ -1,0 +1,62 @@
+# Creating URLs
+
+
+1. Go to each app you created, and create a file called `urls.py`. Once this is created your file directory will probably look like the following:
+
+    ```bash
+    - courses/
+        - __pycache__/
+        - migrations/
+        - __init__.py
+        - admin.py
+        - models.py
+        - tests.py
+        - urls.py  # this was added
+        - views.py
+    - students/
+        - __pycache__/
+        - migrations/
+        - __init__.py
+        - admin.py
+        - models.py
+        - tests.py
+        - urls.py  # this was added
+        - views.py
+    ```
+
+2. Inside each of these newly created urls.py files, add the following code. This is where we will define url paths specific to this app.
+
+    ```python
+    from django.urls import path
+    urlpatterns = [
+
+    ]
+    ```
+
+3. Under the project settings folder (named `tutorial` in this tutorial), find the file named `urls.py`. This file should already exist, so you do not need to create it.
+
+
+
+4. In this file `tutorial/urls.py`, modify the import statements so that we have the following:
+
+    ```Python
+    from django.contrib import admin
+    from django.urls import path, include  # the function include was added to the existing code
+    ```
+
+5. Now, find the list named `urlpatterns`.  Add a second and third "path" by modifying this list to include urls from your other apps. 
+
+
+    ```Python
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('student/', include('students.urls')),  # the string in the inlcude function has to match your app name
+        path('course/', include('courses.urls')),   # the first argument of path does not need to match the name of the app
+    ]
+    ```
+
+    The first argument of `path()` will be the url that follows the domain in order to access resources within an app. For example, if my website is hosted at `www.example.com`, then `www.example.com/student/` will let me access resources connected to the students app. Note that if I would have used `s/` as the path, then that would let me access the students app instead.
+
+    The `include()` function takes in a Pythonic filepath that points to the file called `urls.py` inside of a specific app. As an example, to get from the `manage.py` file to the `urls.py` inside of the `students` app, the Pythonic filepath is `students.urls`.
+
+6. If your server is not still running, let's ensure our server still runs by running `python manage.py runserver`. Once it is running, navigate to [http://127.0.0.1:8000](http://127.0.0.1:8000). Hopefully you get a `Page not found (404)` error where it lists the possible urls for your site.

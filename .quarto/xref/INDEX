@@ -1,0 +1,29 @@
+{
+  "02 Installing Django and Starting a Project.qmd": {
+    "02 Installing Django and Starting a Project.html": "6ea75bf5"
+  },
+  "index.qmd": {
+    "index.html": "b9ba959f"
+  },
+  "03 Creating Apps.qmd": {
+    "03 Creating Apps.html": "0b77b525"
+  },
+  "04 Creating URLs.qmd": {
+    "04 Creating URLs.html": "fdf0636d"
+  },
+  "01 Creating a virtual environment.qmd": {
+    "01 Creating a virtual environment.html": "e7d1982e"
+  },
+  "05 Creating a Form.qmd": {
+    "05 Creating a Form.html": "aaee6617"
+  },
+  "05 Creating a Model.qmd": {
+    "05 Creating a Model.html": "8b4ff2df"
+  },
+  "06 Creating a View.qmd": {
+    "06 Creating a View.html": "927309e9"
+  },
+  "07 Creating a Form.qmd": {
+    "07 Creating a Form.html": "ff83b47e"
+  }
+}

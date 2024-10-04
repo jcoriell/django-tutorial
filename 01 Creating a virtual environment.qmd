@@ -1,0 +1,65 @@
+
+## Tutorial: How to Create and Activate a Python Virtual Environment
+
+Note: Any commands in this tutorial assume you're using a bash like shell (such as bash, zsh, or gitbash).
+
+A virtual environment is a tool that helps keep dependencies required by different projects in separate places. It solves the "dependency hell" problem and allows you to work with different versions of Python and packages without conflicts.
+
+
+
+### Creating a Virtual Environment using venv (built-in)
+
+a.  Navigate to your project directory: Use cd to move into the directory where you want to create your virtual environment.
+
+    ```bash
+    cd path/to/your/project
+    ```
+
+
+b.  Create the virtual environment: Run the following command to create the virtual environment. Here, `.venv` is the name of the virtual environment folder. You can replace .venv with any name you prefer.
+
+    ```bash
+    python -m venv .venv
+    ```
+
+
+### Activate the Virtual Environment
+
+To activate the virtual environment, run one of the following based on your system.
+
+On Windows machines: 
+
+```bash
+.venv/Scripts/activate
+```
+
+
+On macOS and Linux machines:
+
+```bash
+source .venv/bin/activate
+```
+
+
+Once the environment is activated, your terminal prompt will change, indicating you’re now working within the virtual environment. You will see something like this:
+
+```bash
+(.venv) user@machine:~/project$
+```
+
+### Installing Packages in the Virtual Environment
+
+Now that your virtual environment is activated, you can install any Python packages using pip, and they will be isolated to this environment.
+
+```bash
+pip install <package_name>
+```
+
+
+### Deactivating the Virtual Environment
+
+If at any point you care to deactivate the virtual, you can run, for now, leave it active.
+
+```bash
+deactivate
+```

@@ -1,0 +1,28 @@
+project:
+  type: website
+title: "Django Tutorial"
+
+output:
+  html: default
+website: 
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Creating a Virtual Environment
+        href: "01 Creating a virtual environment.qmd"
+      - text: Installing Django and Starting a Project
+        href: "02 Installing Django and Starting a Project.qmd"
+      - text: Creating Apps
+        href: "03 Creating Apps.qmd"
+      - text: Creating URL Paths
+        href: "04 Creating URLs.qmd"
+      - text: Creating a Model
+        href: "05 Creating a Model.qmd"
+      - text: Creating a View
+        href: "06 Creating a View.qmd"
+      - text: Creating a Form
+        href: "07 Creating a Form.qmd"

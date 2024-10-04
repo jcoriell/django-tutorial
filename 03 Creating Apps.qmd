@@ -1,0 +1,38 @@
+## Creating an "App" in Django
+
+You can think of "app" in this context as a single unit of your project and the project as a whole as the application you're developing. You can subdivide the various parts of your project into different "apps". For example, if modeling a university, you might have an app called "courses" and an app called "students" where you can handle the various ways you can programatically interact with a "Course" and the various ways you can programatically interact with a "Student".
+
+1. Create an "App" for your project. It is recommended to use lowercase when naming the apps. The following lines create two apps.
+
+    ```bash
+    django-admin startapp courses
+    ```
+
+    ```bash
+    django-admin startapp students
+    ```
+
+2. If you explore the folders that these commands ran, you will find a variety of files. A brief explanation of each is provided here. We will mostly work in the urls.py, views.py, and models.py files for this tutorial.
+
+    - admin.py - for customizing the built-in admin tools provided by django
+    - apps.py - for defining the configuration of the app
+    - models.py - for defining your database models
+    - tests.py - for defining tests
+    - urls.py - for specifying paths to different views
+    - views.py - for defining the functions you want the urls to execute
+
+
+2. Once you've created an app, go to the `tutorial/settings.py` file to add those apps to the project. To add the app to the project, find the list called `INSTALLED_APPS`. At the end of the list, add the name of your app's folder.
+
+    ```Python
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'courses', # this was added
+        'students', # this was added
+    ]
+    ```

@@ -1,0 +1,85 @@
+## Creating a View
+
+In this file, you will be shown how to create a class based view. There are also function based views in django which is not covered here. Note that there are also shortcuts to accomplish much of what we do here instead of doing it manually.
+
+
+### Creating the Template to Graphically Represent the View
+
+1. Navigate to the `students/` directory and create a folder called `templates`. This folder will contain the HTML files that we want to render in our web browser.
+
+2. Inside of the `students/templates/` folder, create an html file called `all_students.html`. Place the following code inside of it. Django has its own templating lanaguage, so if you're familiar with HTML, you will see some notations that may not make sense. Usage of the templating language is usually marked with double curly braces `{{ somthing in here }}` or curly braces and a percentage symbol `{% something in here %}`.
+
+    The values written in these constructs will typically be passed to this html file via context.
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Student List</title>
+    </head>
+    <body>
+        <h1>Student List</h1>
+
+        <ul>
+            {% for student in students %}
+                <li>{{ student.first_name }} {{ student.last_name }}</li>
+            {% empty %}
+                <li>No students available.</li>
+            {% endfor %}
+        </ul>
+
+    </body>
+    </html>
+
+    ```
+
+
+### Creating the View
+
+1. Now navigate to `students/views.py` and modify the imports as shown:
+
+    ```python
+    from django.shortcuts import render
+    from django.views import View
+    from . import models
+    ```
+
+2. Create a class called `GetAllStudents` that inherits from the django View class. We make a query to the database in `get()` method of this class and then return a rendering of an html file that has access to some context we pass it. Note that in the context `{'students': students}` the key to this dictionary needs to match the reference in the html file. The reference in the html file is in the for loop `{% for student in students %}`
+
+    ```python
+
+    class GetAllStudents(View):
+        
+        def get(self, request):  
+            # this takes in self since it is a method 
+            # and a second parameter will be passed in that represents the HTTP request that was made
+            # We don't use either in this method, but we still need to provide the parameters
+            
+            # make a request to the database for all of the student objects
+            students = models.Student.objects.all()
+            
+            # return a rendering of the all_students.html file with the context {"students": students}
+            return render(request, 'all_students.html', {'students': students})
+
+    ```
+
+
+### Creating the URL to Trigger the View
+
+1. Navigate to `students/urls.py` and make the following addition to the `urlpatterns` list and the imports. Notice how we make a reference to the view we created in the views.py file.
+
+
+
+    ```python
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        # the endpoint is 127.0.0.1:8000/student/all/ since we included this file in `tutorial/urls.py`
+        path("all/", views.GetAllStudents.as_view(), name="all"),
+    ]
+    ```
+
+2. To trigger this view, we need to navigate to [http://127.0.0.1:8000/student/all/](http://127.0.0.1:8000/student/all/) while the server is running. At this point, it should show that there are no students created.
+
+

@@ -1,0 +1,46 @@
+# Creating a Model
+
+
+1. In the `students` app, let's create a template for what it means to be a student. This "template" will be the definition of a student for our database. Navigate to the `students/models.py` and modify the code as follows:
+
+
+    ```python
+    from django.db import models
+
+    class Student(models.Model):
+        
+        first_name = models.CharField(max_length=255, null=True)
+        last_name = models.CharField(max_length=255, null=True)
+        email = models.EmailField(null=True)
+
+    ```
+
+    Notice we added a class for `Student`. This class inherits from django's `Model` class. What we typically think of as class variables in python can be used to define attributes of a student. So in this case, student's have first names, last names, and emails. 
+
+    Each attribute is given a type from the django `models` module as well. Without diving into too much detail, we are claiming the first and last names should be `CharFields`, while the email is an `EmailField`. There are lots of different types that come with django that you can use depending on what you might need. Certain types come with built in feature (such as email validation for the EmailField). 
+
+    One additional note, the argument `null=True` allows a field to not be required. This is typically not desired from a data point of view and can be considered bad practice. However, for the sake of learning django and experiencing fewer errors as a newbie, this can help us. 
+
+2. Now that we have made changes to a model, we need to make our database reflect these changes. This is a two step process: first you make the migrations, then you migrate.
+
+### Making migrations
+
+A migration is a set of instructions on how the database should be modified from its current state to the state reflected in the models. To create the instructions we run the following command:
+
+```bash
+python manage.py makemigrations
+```
+
+### Migrating
+
+Migrating is the process of applying the instructions that were created in the previous step. This will alter the database. To migrate, run the following command:
+
+```bash
+python manage.py migrate
+```
+
+
+### The database
+If you haven't noticed it yet, there should be a `db.sqlite3` file at the root of your project directory. This is your database. There are applications that allow you to explore this file. One such application is a VS code extension SQLite3 Editor. If exploring with another application, just use caution when editing the database. I recommend not by passing django to make edits unless you know what you're doing.
+
+In production, you would want to use a real database, not an sqlite3 file. However, for in-class projects this is sufficient and will work great.
