@@ -27,3 +27,9 @@ website:
         href: "06 Creating a View.qmd"
       - text: Creating a Form
         href: "07 Creating a Form.qmd"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
